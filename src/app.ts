@@ -59,6 +59,10 @@ export function createApp(): Express {
   // Server-rendered share page - this is the URL that goes out in tweets.
   app.use('/card', cardPageRouter);
 
+  app.get('/', (req, res) => {
+    res.send('working');
+  });
+
   app.use(notFoundHandler);
   app.use(errorHandler);
 
