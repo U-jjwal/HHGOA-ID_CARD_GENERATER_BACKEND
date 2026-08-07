@@ -10,9 +10,20 @@ import { notFoundHandler, errorHandler } from '@middleware/errorHandler';
 import { cardApiRouter, cardPageRouter } from '@features/cards/card.routes';
 import { uploadRouter } from '@features/upload/upload.routes';
 import { healthRouter } from '@features/health.routes';
+import { connectToDatabase } from './db/db';
 
 export function createApp(): Express {
   const app = express();
+
+  // Ensure DB connection for every request (Serverless safe)
+  app.use(async (_req, _res, next) => {
+    try {
+      await connectToDatabase();
+    } catch (error) {
+      logger.error('Database connection error in middleware');
+    }
+    next();
+  });
 
   app.set('trust proxy', 1);
 

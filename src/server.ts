@@ -1,6 +1,6 @@
 import { createApp } from './app';
 import { env } from '@config/env';
-import { connectToDatabase, disconnectFromDatabase } from '@config/db';
+import { connectToDatabase, disconnectFromDatabase } from './db/db';
 import { redis } from '@config/redis';
 import { logger } from '@utils/logger';
 
