@@ -49,6 +49,7 @@ export function createApp(): Express {
         // and any origin present in the allowlist.
         const allowedOrigins = [
           'http://localhost:5173',
+          'http://localhost:5174',
           'https://hhgoa-id-card-generater-frontend-9xgxz420p.vercel.app'
         ];
         

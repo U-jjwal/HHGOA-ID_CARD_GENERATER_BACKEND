@@ -2,12 +2,12 @@
   "name": "hh-goa-frame-backend",
   "version": "1.0.0",
   "description": "Backend for HH Goa 2026 Frame/ID Card Generator - handles card persistence, OG-tagged share pages, and ImageKit auth",
-  "main": "dist/server.js",
+  "main": "dist/app.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/server.ts",
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register app.ts",
     "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "start": "node dist/server.js",
+    "start": "node dist/app.js",
     "lint": "eslint src --ext .ts",
     "typecheck": "tsc --noEmit"
   },
