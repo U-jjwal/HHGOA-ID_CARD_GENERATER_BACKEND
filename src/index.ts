@@ -50,7 +50,8 @@ export function createApp(): Express {
         const allowedOrigins = [
           'http://localhost:5173',
           'http://localhost:5174',
-          'https://hhgoa-id-card-generater-frontend-9xgxz420p.vercel.app'
+          'https://hhgoa-id-card-generater-frontend-9xgxz420p.vercel.app',
+          'https://hhgoa-id-card-generater-frontend-gek9ohk9r.vercel.app'
         ];
         
         if (!origin || allowedOrigins.includes(origin)) {
