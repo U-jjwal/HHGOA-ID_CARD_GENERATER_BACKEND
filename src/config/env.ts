@@ -23,7 +23,7 @@ const envSchema = z.object({
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60000),
   RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(30),
 
-  CORS_ORIGINS: z.string().min(1).default('http://localhost:5173'),
+
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -35,5 +35,5 @@ if (!parsed.success) {
 export const env = {
   ...parsed.data,
   isProduction: parsed.data.NODE_ENV === 'production',
-  corsOrigins: parsed.data.CORS_ORIGINS.split(',').map((origin) => origin.trim()),
+
 };
