@@ -5,7 +5,7 @@ import { logger } from '@utils/logger';
 export const redis = new Redis(env.REDIS_URL, {
   maxRetriesPerRequest: 2,
   retryStrategy: (times) => Math.min(times * 200, 3000),
-  lazyConnect: false,
+  lazyConnect: true,
 });
 
 redis.on('connect', () => logger.info('Redis connected'));
