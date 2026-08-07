@@ -6,7 +6,7 @@ const app = createApp();
 let isDbConnected = false;
 
 // Ensure database is connected before handling the request
-app.use(async (req, res, next) => {
+app.use(async (_req, _res, next) => {
   if (!isDbConnected) {
     try {
       await connectToDatabase();
