@@ -36,7 +36,12 @@ export function createApp(): Express {
       origin: (origin, callback) => {
         // Allow non-browser tools (curl, health checks) with no Origin header,
         // and any origin present in the allowlist.
-        if (!origin || env.corsOrigins.includes(origin)) {
+        const allowedOrigins = [
+          'http://localhost:5173',
+          'https://hhgoa-id-card-generater-frontend-9xgxz420p.vercel.app'
+        ];
+        
+        if (!origin || allowedOrigins.includes(origin)) {
           callback(null, true);
           return;
         }
