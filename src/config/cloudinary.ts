@@ -18,25 +18,10 @@ export interface FramedImageOptions {
 }
 
 export function buildFramedImageUrl(publicId: string): string {
-  // We apply transformations. For Cloudinary, we can use their transformation API.
-  // First, extract the face and resize to 1080x1080.
-  // Then overlay the frame image (which we'll assume is uploaded with public_id "hh-goa-frame" in the root).
-  
-  // Note: For Cloudinary, the frame overlay must exist in your Cloudinary account. 
-  // Let's assume the user uploaded the frame with public ID "hh-goa-frame".
-  // const overlayId = 'hh-goa-frame'; // Adjust this if the frame has a different public_id in cloudinary
-
-  const transformations = [
-    { width: 1080, height: 1080, crop: 'thumb', gravity: 'face' },
-    // Temporarily disabled since 'hh-goa-frame' does not exist in your Cloudinary account
-    // { overlay: overlayId, width: 1080, height: 1080, crop: 'scale' },
-  ];
-
-  // We only need the cropped face image now, since the text and layout are rendered via HTML/CSS on the frontend.
-
-  return cloudinary.url(publicId, {
-    transformation: transformations
-  });
+  // Since the frontend now generates and uploads the fully-rendered ID card,
+  // we no longer need to apply face-cropping or overlays on the backend.
+  // We just return the direct URL to the uploaded image.
+  return cloudinary.url(publicId);
 }
 
 export function getCloudinaryAuthParams() {
