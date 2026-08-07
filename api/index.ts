@@ -3,17 +3,12 @@ import { connectToDatabase } from '../src/config/db';
 
 const app = createApp();
 
-let isDbConnected = false;
-
 // Ensure database is connected before handling the request
 app.use(async (_req, _res, next) => {
-  if (!isDbConnected) {
-    try {
-      await connectToDatabase();
-      isDbConnected = true;
-    } catch (error) {
-      console.error('Vercel DB connection error:', error);
-    }
+  try {
+    await connectToDatabase();
+  } catch (error) {
+    console.error('Vercel DB connection error:', error);
   }
   next();
 });

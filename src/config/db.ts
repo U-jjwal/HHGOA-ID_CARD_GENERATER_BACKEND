@@ -2,29 +2,26 @@ import mongoose from 'mongoose';
 import { env } from '@config/env';
 import { logger } from '@utils/logger';
 
-const MAX_RETRIES = 5;
-const RETRY_DELAY_MS = 3000;
+
 
 mongoose.set('strictQuery', true);
 
-export async function connectToDatabase(retryCount = 0): Promise<void> {
+export async function connectToDatabase(): Promise<typeof mongoose> {
+  // If already connected or connecting, reuse existing connection
+  if (mongoose.connection.readyState >= 1) {
+    return mongoose;
+  }
+
   try {
-    await mongoose.connect(env.MONGO_URI, {
-      serverSelectionTimeoutMS: 8000,
-      maxPoolSize: 20,
+    const conn = await mongoose.connect(env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+      maxPoolSize: 10,
     });
     logger.info('MongoDB connected');
+    return conn;
   } catch (error) {
-    if (retryCount >= MAX_RETRIES) {
-      logger.error({ error }, 'MongoDB connection failed after max retries, exiting');
-      process.exit(1);
-    }
-    logger.warn(
-      { attempt: retryCount + 1, maxRetries: MAX_RETRIES },
-      `MongoDB connection failed, retrying in ${RETRY_DELAY_MS}ms`,
-    );
-    await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
-    return connectToDatabase(retryCount + 1);
+    logger.error({ error }, 'MongoDB connection failed');
+    throw error;
   }
 }
 
